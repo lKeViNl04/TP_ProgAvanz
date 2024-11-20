@@ -8,7 +8,9 @@ import ar.edu.davinci.POKEMON.Pokemon;
 
 public class Agua extends Tipo {
 
-    public Agua(){}
+    public Agua(){
+        super("Agua");
+    }
 
     @Override
     public void atacar(Pokemon atacante, Pokemon defensor) {

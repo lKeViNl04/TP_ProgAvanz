@@ -1,7 +1,7 @@
 import ar.edu.davinci.POKEMON.Pokemon;
 import ar.edu.davinci.POKEMON.TIPO.Agua;
 import ar.edu.davinci.POKEMON.TIPO.Tipo;
-import ar.edu.davinci.POKEMON.TIPO.Tipofactory;
+import ar.edu.davinci.POKEMON.TIPO.TipoFactory;
 import org.junit.jupiter.api.Test;
 
 public class PokemonTest {
@@ -14,7 +14,7 @@ public class PokemonTest {
 
         System.out.println(DEAGUA.getTipo());
 
-        System.out.println(Tipofactory.obtenerlist());
+        System.out.println("hola");
 
 
     }

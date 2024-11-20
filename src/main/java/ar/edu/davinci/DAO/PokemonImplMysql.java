@@ -2,7 +2,7 @@ package ar.edu.davinci.DAO;
 
 import ar.edu.davinci.POKEMON.Pokemon;
 import ar.edu.davinci.POKEMON.TIPO.Tipo;
-import ar.edu.davinci.POKEMON.TIPO.Tipofactory;
+import ar.edu.davinci.POKEMON.TIPO.TipoFactory;
 
 import java.sql.*;
 
@@ -68,7 +68,10 @@ public class PokemonImplMysql implements PokemonDAO {
                 String tipoStr = resultSet.getString("tipo");
                 String especie = resultSet.getString("especie");
                 int poder = resultSet.getInt("poder");
-                Tipo tipo = Tipofactory.crearInstancia( tipoStr );
+
+
+
+                Tipo tipo = TipoFactory.getInstance().crearInstancia( tipoStr );
                 Pokemon pokemon = new Pokemon(tipo, especie, poder);
                 pokemons.add(pokemon);
             }
@@ -76,7 +79,6 @@ public class PokemonImplMysql implements PokemonDAO {
             resultSet.close();
             statement.close();
             connection.close();
-
 
         } catch (SQLException e) {
             e.printStackTrace();

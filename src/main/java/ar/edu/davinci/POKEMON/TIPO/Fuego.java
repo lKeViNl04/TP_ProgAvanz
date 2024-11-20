@@ -6,7 +6,9 @@ import ar.edu.davinci.BONUS.LowMedium;
 import ar.edu.davinci.POKEMON.Pokemon;
 
 public class Fuego extends Tipo {
-    public Fuego(){}
+    public Fuego(){
+        super("Fuego");
+    }
 
     @Override
     public void atacar(Pokemon atacante, Pokemon defensor) {

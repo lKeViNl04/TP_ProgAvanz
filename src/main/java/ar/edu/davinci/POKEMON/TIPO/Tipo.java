@@ -4,6 +4,16 @@ import ar.edu.davinci.POKEMON.Pokemon;
 
 public abstract class Tipo {
 
+    private String nombre;
+
+    public Tipo(String p_nombre) {
+        nombre = p_nombre;
+    }
+
+    public boolean estipo(String tipo) {
+        return nombre.equalsIgnoreCase(tipo);
+    }
+
     public  abstract void atacar(Pokemon atacante, Pokemon defensor );
 
     public  void serAtacadoPorTipoAgua(Pokemon atacante, Pokemon defensor){
@@ -28,5 +38,7 @@ public abstract class Tipo {
     };
 
 
-    public abstract String toString();
+    public  String getNombre(){
+        return nombre;
+    };
 }

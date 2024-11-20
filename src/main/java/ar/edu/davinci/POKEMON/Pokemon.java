@@ -89,7 +89,7 @@ public class Pokemon {
     }
 
     public String toString(){
-        return"Pokemon: {Especie"+getEspecie()+" Poder: "+getPoder()+" Vida:"+ getVida()+"}";
+        return"Pokemon " +tipo.getNombre()+ " : {Especie"+getEspecie()+" Poder: "+getPoder()+" Vida:"+ getVida()+"}";
     }
 
 

@@ -1,9 +1,12 @@
 package ar.edu.davinci.ENTRENADOR;
 
 import ar.edu.davinci.POKEMON.Pokemon;
+import ar.edu.davinci.POKEMON.TIPO.Agua;
 import ar.edu.davinci.POKEMON.TIPO.Fuego;
 import ar.edu.davinci.POKEMON.TIPO.Planta;
+import ar.edu.davinci.POKEMON.TIPO.Tipo;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Entrenador {
@@ -67,49 +70,46 @@ public class Entrenador {
     //COMPORTAMIENTO
 
 
+    public boolean estanvivos(List<Pokemon> pokemons) {
+        return pokemons.stream().anyMatch(pokemon
+                -> (pokemon.getVida()>0));
+    }
 
     public void enfrentarseAOtro(Entrenador otroEntrenador) {
 
-        while ((!this.pokemons.isEmpty()) && (!otroEntrenador.pokemons.isEmpty())) {
+        while ((estanvivos(this.pokemons)) && (estanvivos(otroEntrenador.pokemons))) {
 
             Pokemon miPokemon = this.elegirPokemon();
             Pokemon rival = otroEntrenador.elegirPokemon();
 
-            this.batalla1vs1( miPokemon, rival );
+            this.batalla1vs1(miPokemon, rival);
+        }
 
-            if(miPokemon.getVida()>0){
-                System.out.println("El ganador de la batalla es :"+miPokemon.toString());
-                otroEntrenador.pokemons.remove(rival);
-            }else{
-                System.out.println("El ganador de la batalla es :"+rival.toString());
-                this.pokemons.remove(miPokemon);
-            }
-
-
-            }
-
-            if (!this.pokemons.isEmpty()){
-            System.out.println("el ganador del enfrentamiento es "+ this.nombre);
-            }else{
-                System.out.println("el ganador del enfrentamiento es "+ otroEntrenador.nombre);
-            }
+        if (estanvivos(this.pokemons)) {
+            System.out.println("el ganador del enfrentamiento es " + this.nombre);
+        } else {
+            System.out.println("el ganador del enfrentamiento es " + otroEntrenador.nombre);
+        }
 
     }
 
-    public void batalla1vs1(Pokemon miPokemon ,Pokemon rival) {
 
-        while(miPokemon.getVida() > 0 && rival.getVida() > 0){
-            System.out.println("el pokemon "+ miPokemon.getEspecie() +" ataca al pokemon" + rival.getEspecie() );
+
+    public void batalla1vs1(Pokemon miPokemon, Pokemon rival) {
+
+        while (miPokemon.getVida() > 0 && rival.getVida() > 0) {
+           System.out.println("el pokemon " + miPokemon.getEspecie() + " ataca al pokemon" + rival.getEspecie());
             miPokemon.atacar(rival);
-            System.out.println("vida de "+ rival.getEspecie() + " es de "+ rival.getVida());
+            System.out.println("vida de " + rival.getEspecie() + " es de " + rival.getVida());
             if (rival.getVida() > 0) {
-                System.out.println("el pokemon "+ rival.getEspecie() +" ataca al pokemon" + miPokemon.getEspecie());
-              rival.atacar(miPokemon);
-                System.out.println("vida de "+ miPokemon.getEspecie() + " es de "+ miPokemon.getVida());
+                System.out.println("el pokemon " + rival.getEspecie() + " ataca al pokemon" + miPokemon.getEspecie());
+                rival.atacar(miPokemon);
+                System.out.println("vida de " + miPokemon.getEspecie() + " es de " + miPokemon.getVida());
             }
         }
 
-
+        String ganador = (miPokemon.getVida() > 0) ? miPokemon.getEspecie() : rival.getEspecie();
+        System.out.println("La batalla ha terminado. ¡El ganador es " + ganador + "!");
     }
 
     public Pokemon elegirPokemon() {
@@ -117,19 +117,29 @@ public class Entrenador {
 
         Pokemon pokemon = null;
 
-        do{
-        mostrarPokemones();
+        do {
+            mostrarPokemones();
 
-        System.out.println("Elegir pokemon");
-        int elegido = sc.nextInt();
+            System.out.println("Elegir pokemon");
+            int elegido = sc.nextInt();
 
-        if (elegido >= 0 && elegido < pokemons.size()) {
-            pokemon = this.pokemons.get(elegido);
-            System.out.println("Pokemon Elegido");
-        }else{
-            System.out.println("Pokemon no encontrado vuelva a poner pokemon");
-        }
-        }while( pokemon == null );
+            try {
+
+                pokemon = this.pokemons.get(elegido);
+                System.out.println("Pokemon Elegido");
+
+                if (pokemon.getVida() < 0) {
+                    throw new IllegalStateException("No se puede elegir pokemon esta MUERTO");
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("El índice está fuera del rango. Intenta nuevamente.");
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                pokemon = null;
+            }
+
+        } while (pokemon == null);
 
         return pokemon;
 
@@ -138,17 +148,17 @@ public class Entrenador {
 
     public void obtenerPokemonInicial(int elegir) {
 
-        switch(elegir) {
+        switch (elegir) {
             case 1:
-                Pokemon charmander = new Pokemon(new Fuego(),"Charmader",55);
+                Pokemon charmander = new Pokemon(new Fuego(), "Charmader", 55);
                 this.pokemons.add(charmander);
                 break;
             case 2:
-                Pokemon bulbasur = new Pokemon(new Planta(),"Bulbasaur",45);
+                Pokemon bulbasur = new Pokemon(new Planta(), "Bulbasaur", 45);
                 this.pokemons.add(bulbasur);
                 break;
             case 3:
-                Pokemon squirtle = new Pokemon(new Planta(),"Squirtle",45);
+                Pokemon squirtle = new Pokemon(new Agua(), "Squirtle", 45);
                 this.pokemons.add(squirtle);
                 break;
             default:
@@ -161,33 +171,28 @@ public class Entrenador {
     public void capturarPokemon(Pokemon p_pokemon) {
         if (pokemons.stream().count() < 5) {
 
-          Pokemon miPokemon =  this.elegirPokemon();
+            Pokemon miPokemon = this.elegirPokemon();
 
-          this.batalla1vs1( miPokemon, p_pokemon );
+            this.batalla1vs1(miPokemon, p_pokemon);
 
-          if(p_pokemon.getVida()<=0){
-              this.pokemons.add(p_pokemon);
-          }
+            if (p_pokemon.getVida() <= 0) {
+                this.pokemons.add(p_pokemon);
+            }
         } else {
             System.out.println("No podes tener más de 5 Pokémons.");
         }
     }
 
-    public void mostrarPokemones(){
-        System.out.println("Lista de pokemones de "+ this.getNombre() +" : "+ "\n");
+    public void mostrarPokemones() {
+        System.out.println("Lista de pokemones de " + this.getNombre() + " : " + "\n");
         for (Pokemon pokemon : pokemons) {
             System.out.println(pokemon);
         }
     }
 
-    public void ganadorGuerra(Entrenador p_entrenador){
-        if(p_entrenador.getPokemons() != null){
-            System.out.println("Ganaste "+  p_entrenador.getNombre());
-        }
-    }
 
-    public void agregarPokemons(Pokemon pokemon){
-        if(this.getPokemons().size() <5){
+    public void agregarPokemons(Pokemon pokemon) {
+        if (this.getPokemons().size() < 5) {
             this.pokemons.add(pokemon);
         }
     }

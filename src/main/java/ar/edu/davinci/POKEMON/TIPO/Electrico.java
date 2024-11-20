@@ -6,7 +6,9 @@ import ar.edu.davinci.POKEMON.Pokemon;
 
 public class Electrico extends Tipo {
 
-    public Electrico(){}
+    public Electrico(){
+        super("Electrico");
+    }
 
 
     @Override

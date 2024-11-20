@@ -6,7 +6,9 @@ import ar.edu.davinci.BONUS.Minimal;
 import ar.edu.davinci.POKEMON.Pokemon;
 
 public class Planta extends Tipo {
-    public Planta(){}
+    public Planta(){
+        super("Planta");
+    }
 
 
     @Override
@@ -26,11 +28,6 @@ public class Planta extends Tipo {
         Bonus Minimal = new Minimal();
         float vidarestante = atacante.getPoder() + Minimal.calcularbonus(atacante.getPoder());
         defensor.restarVida(vidarestante);
-    }
-
-    @Override
-    public String toString() {
-        return "Planta";
     }
 
 
