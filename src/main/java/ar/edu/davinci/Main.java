@@ -1,10 +1,10 @@
 package ar.edu.davinci;
 
-import ar.edu.davinci.DAO.EntrenadorImplMysql;
-import ar.edu.davinci.DAO.PokemonImplMysql;
-import ar.edu.davinci.ENTRENADOR.Entrenador;
-import ar.edu.davinci.ENTRENADOR.Genero;
-import ar.edu.davinci.POKEMON.Pokemon;
+import ar.edu.davinci.Backend.DAO.EntrenadorImplMysql;
+import ar.edu.davinci.Backend.DAO.PokemonImplMysql;
+import ar.edu.davinci.Backend.Trainer.Entrenador;
+import ar.edu.davinci.Backend.Trainer.Genero;
+import ar.edu.davinci.Backend.Pokemon.Pokemon;
 
 import java.util.List;
 import java.util.Random;

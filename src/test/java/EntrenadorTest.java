@@ -1,5 +1,5 @@
-import ar.edu.davinci.ENTRENADOR.Entrenador;
-import ar.edu.davinci.ENTRENADOR.Genero;
+import ar.edu.davinci.Backend.Trainer.Entrenador;
+import ar.edu.davinci.Backend.Trainer.Genero;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,7 +1,6 @@
-import ar.edu.davinci.POKEMON.Pokemon;
-import ar.edu.davinci.POKEMON.TIPO.Agua;
-import ar.edu.davinci.POKEMON.TIPO.Tipo;
-import ar.edu.davinci.POKEMON.TIPO.TipoFactory;
+import ar.edu.davinci.Backend.Pokemon.Pokemon;
+import ar.edu.davinci.Backend.Pokemon.TIPO.Agua;
+import ar.edu.davinci.Backend.Pokemon.TIPO.Tipo;
 import org.junit.jupiter.api.Test;
 
 public class PokemonTest {
